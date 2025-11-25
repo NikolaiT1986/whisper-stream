@@ -1,3 +1,8 @@
+--extra-index-url https://download.pytorch.org/whl/cu121
+
 fastapi
 uvicorn[standard]
 openai-whisper
+
+numpy==1.26.4
+torch==2.3.0+cu121

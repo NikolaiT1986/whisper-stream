@@ -76,6 +76,7 @@ recordBtn.addEventListener("click", () => {
 
 async function startRecording() {
     statusDiv.textContent = "Подключение к серверу...";
+    transcriptDiv.textContent = "";
 
     const protocol = location.protocol === "https:" ? "wss" : "ws";
     ws = new WebSocket(`${protocol}://${location.host}/ws/audio`);
@@ -147,7 +148,7 @@ function stopRecording(fromWS = false) {
     }
 
     if (!fromWS && ws && ws.readyState === WebSocket.OPEN) {
-        ws.close();
+        ws.send("stop");
     }
 
     statusDiv.textContent = "Запись остановлена";
