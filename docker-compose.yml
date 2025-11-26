@@ -1,0 +1,10 @@
+services:
+  whisper-stream:
+    build: .
+    container_name: whisper-stream
+    gpus: all
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./models:/app/models
+    restart: unless-stopped
