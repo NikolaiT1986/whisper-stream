@@ -5,6 +5,9 @@ services:
     gpus: all
     ports:
       - "8000:8000"
+    environment:
+      - WHISPER_MODEL=base
+      - WHISPER_DEVICE=cuda
     volumes:
       - ./models:/app/models
     restart: unless-stopped
