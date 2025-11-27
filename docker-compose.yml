@@ -7,7 +7,7 @@ services:
       - "8000:8000"
     environment:
       - WHISPER_MODEL=base
-      - WHISPER_DEVICE=cuda
+      - WHISPER_DEVICE=cpu
     volumes:
       - ./models:/app/models
     restart: unless-stopped

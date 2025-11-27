@@ -23,7 +23,7 @@ MAX_SEGMENT_BYTES = int(SAMPLE_RATE * BYTES_PER_SAMPLE * MAX_SEGMENT_SECONDS)  #
 
 # ===== Whisper =====
 # tiny(.en), base(.en), small(.en), medium(.en), large-v1/v2/v3, large-v3-turbo, turbo, distil-large-v3
-WHISPER_MODEL: str = os.getenv("WHISPER_MODEL", "large-v3-turbo").lower()  # имя модели
+WHISPER_MODEL: str = os.getenv("WHISPER_MODEL", "base").lower()  # имя модели
 WHISPER_DEVICE: str = os.getenv("WHISPER_DEVICE", "cpu").lower()  # "cpu", "cuda" | "cuda:0" | "cuda:1" (gpu)
 WHISPER_LANGUAGE: str | None = os.getenv("WHISPER_LANGUAGE") or None  # язык ("ru", "en", ...), None = авто
 # True | False использовать ли контекст предыдущих сегментов
