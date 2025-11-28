@@ -80,9 +80,12 @@ Linux / macOS
   uvicorn backend.main:app --host 127.0.0.1 --port 8000
 ```
 
+После запуска приложение будет доступно по адресу: http://localhost:8000/
+
 ## Настройки конфигурации
 
-Параметры конфигурации можно задавать через переменные окружение в терминале или в `docker-compose.yml`.
-Перечень всех параметров с описанием находится в фале `backend/config.py`.
+- Параметры конфигурации можно задавать через переменные окружение в терминале или в
+  [`docker-compose.yml`](docker-compose.yml).
+- Перечень всех параметров с описанием находится в фале [`backend/config.py`](backend/config.py).
 
 Лицензия [MIT](https://opensource.org/licenses/MIT)
