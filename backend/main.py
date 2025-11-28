@@ -17,9 +17,10 @@ from typing import AsyncGenerator
 
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
+from .routes.frontend import router as frontend_router
+from .routes.api import router as api_router
+from .routes.websocket import router as ws_router
 
-from .api.http import router as http_router
-from .api.websocket import router as ws_router
 from .config import FRONTEND_DIR, WHISPER_DEVICE, WHISPER_LANGUAGE
 
 logger = logging.getLogger(__name__)
@@ -58,5 +59,7 @@ app = FastAPI(
 )
 
 app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
-app.include_router(http_router)
+
+app.include_router(frontend_router)
+app.include_router(api_router, prefix="/api")
 app.include_router(ws_router)

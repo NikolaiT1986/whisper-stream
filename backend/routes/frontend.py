@@ -11,8 +11,3 @@ router = APIRouter()
 @router.get("/")
 async def index() -> FileResponse:
     return FileResponse(FRONTEND_DIR / "index.html")
-
-
-@router.get("/health")
-async def health() -> dict[str, str]:
-    return {"status": "ok"}
