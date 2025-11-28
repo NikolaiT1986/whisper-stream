@@ -2,12 +2,27 @@ services:
   whisper-stream:
     build: .
     container_name: whisper-stream
-    gpus: all
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [ gpu ]
     ports:
       - "8000:8000"
     environment:
       - WHISPER_MODEL=base
       - WHISPER_DEVICE=cpu
+    healthcheck:
+      test: >
+        python3 -c "import urllib.request;
+        urllib.request.urlopen('http://localhost:8000/api/health')"
+      start_period: 3s
+      interval: 10s
+      timeout: 3s
+      retries: 10
+
     volumes:
       - ./models:/app/models
     restart: unless-stopped

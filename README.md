@@ -30,13 +30,13 @@
 1-й запуск (или при изменениях в коде):
 
 ```bash
-  docker compose up --build
+  docker compose up -d --build --wait
 ```
 
 Повторные запуски без пересборки:
 
 ```bash
-  docker compose up
+  docker compose up -d --wait
 ```
 
 Остановить и удалить контейнеры:
