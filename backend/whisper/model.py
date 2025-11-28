@@ -12,6 +12,7 @@ from ..config import (
     WHISPER_DEVICE,
     MODELS_DIR,
     WHISPER_LANGUAGE,
+    WHISPER_BEAM_SIZE,
     WHISPER_USE_CONTEXT,
 )
 
@@ -47,7 +48,7 @@ async def transcribe_chunk(raw_bytes: bytes) -> str:
         segments, info = get_model().transcribe(
             audio,
             language=get_language(),
-            beam_size=1,
+            beam_size=WHISPER_BEAM_SIZE,
             condition_on_previous_text=WHISPER_USE_CONTEXT,
         )
     except Exception as e:

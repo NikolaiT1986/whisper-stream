@@ -32,5 +32,7 @@ MAX_SEGMENT_BYTES = int(SAMPLE_RATE * BYTES_PER_SAMPLE * MAX_SEGMENT_SECONDS)  #
 WHISPER_MODEL: str = os.getenv("WHISPER_MODEL", "base").lower()  # имя модели
 WHISPER_DEVICE = resolve_device(os.getenv("WHISPER_DEVICE", "cpu"))  # "cpu", "cuda" | "cuda:0" | "cuda:1" (gpu)
 WHISPER_LANGUAGE: str | None = os.getenv("WHISPER_LANGUAGE") or None  # язык ("ru", "en", ...), None = авто
+# размер beam search: 1 = greedy, >1 = beam search (по умолчанию 1)
+WHISPER_BEAM_SIZE: int | None = int(os.getenv("WHISPER_BEAM_SIZE", "1"))
 # True | False использовать ли контекст предыдущих сегментов
 WHISPER_USE_CONTEXT: bool = os.getenv("WHISPER_USE_CONTEXT", "true").lower() in ("1", "true", "yes", "on")

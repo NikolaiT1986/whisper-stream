@@ -21,7 +21,7 @@ from .routes.frontend import router as frontend_router
 from .routes.api import router as api_router
 from .routes.websocket import router as ws_router
 
-from .config import FRONTEND_DIR, WHISPER_DEVICE, WHISPER_LANGUAGE
+from .config import FRONTEND_DIR, WHISPER_DEVICE, WHISPER_LANGUAGE, WHISPER_BEAM_SIZE
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -36,6 +36,7 @@ async def lifespan(_: FastAPI) -> AsyncGenerator[None, None]:
 
     logger.info("Whisper device is: %s", WHISPER_DEVICE)
     logger.info("Available GPU support: %s", cuda_supported)
+    logger.info("Whisper beam_size: %s", WHISPER_BEAM_SIZE or "auto")
     logger.info("Whisper language: %s", WHISPER_LANGUAGE or "auto")
 
     if WHISPER_DEVICE.lower() == "cuda" and not cuda_supported:
