@@ -1,6 +1,12 @@
 import os
 from pathlib import Path
 
+
+def resolve_device(value: str) -> str:
+    value = value.lower().strip()
+    return "cuda" + value[3:] if value.startswith("gpu") else value
+
+
 # ===== Пути =====
 BASE_DIR = Path(__file__).resolve().parent.parent  # корень проекта
 FRONTEND_DIR = BASE_DIR / "frontend"  # статические файлы фронтенда
@@ -24,7 +30,7 @@ MAX_SEGMENT_BYTES = int(SAMPLE_RATE * BYTES_PER_SAMPLE * MAX_SEGMENT_SECONDS)  #
 # ===== Whisper =====
 # tiny(.en), base(.en), small(.en), medium(.en), large-v1/v2/v3, large-v3-turbo, turbo, distil-large-v3
 WHISPER_MODEL: str = os.getenv("WHISPER_MODEL", "base").lower()  # имя модели
-WHISPER_DEVICE: str = os.getenv("WHISPER_DEVICE", "cpu").lower()  # "cpu", "cuda" | "cuda:0" | "cuda:1" (gpu)
+WHISPER_DEVICE = resolve_device(os.getenv("WHISPER_DEVICE", "cpu"))  # "cpu", "cuda" | "cuda:0" | "cuda:1" (gpu)
 WHISPER_LANGUAGE: str | None = os.getenv("WHISPER_LANGUAGE") or None  # язык ("ru", "en", ...), None = авто
 # True | False использовать ли контекст предыдущих сегментов
 WHISPER_USE_CONTEXT: bool = os.getenv("WHISPER_USE_CONTEXT", "true").lower() in ("1", "true", "yes", "on")
