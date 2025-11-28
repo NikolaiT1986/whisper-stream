@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import logging
 from functools import lru_cache
+from pathlib import Path
 
 import numpy as np
 from faster_whisper import WhisperModel
@@ -20,10 +21,9 @@ logger = logging.getLogger(__name__)
 @lru_cache(maxsize=1)
 def get_model() -> WhisperModel:
     return WhisperModel(
-        WHISPER_MODEL,
+        str(Path(MODELS_DIR) / WHISPER_MODEL),
         device=WHISPER_DEVICE,
         compute_type="int8_float16" if WHISPER_DEVICE == "cuda" else "int8",
-        download_root=str(MODELS_DIR),
     )
 
 

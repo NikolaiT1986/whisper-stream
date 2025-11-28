@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import os
+import subprocess
+import sys
 
 if cuda_bin_path := os.environ.get("CUDA_BIN_PATH"):
     os.environ["PATH"] = cuda_bin_path + os.pathsep + os.environ["PATH"]
@@ -39,12 +41,12 @@ async def lifespan(_: FastAPI) -> AsyncGenerator[None, None]:
         raise RuntimeError("WHISPER_DEVICE=cuda, но CUDA compute types недоступны!")
 
     logger.info("Loading Whisper model '%s'...", WHISPER_MODEL)
-    try:
-        model = get_model()
-        audio = np.zeros(0, dtype=np.float32)
-        _segments, _info = model.transcribe(audio)
-    except Exception as e:
-        raise RuntimeError(e)
+
+    subprocess.run([sys.executable, "-m", "backend.tools.model_loader"], check=True)
+
+    model = get_model()
+    audio = np.zeros(0, dtype=np.float32)
+    _segments, _info = model.transcribe(audio)
     logger.info("Whisper model '%s' is ready", WHISPER_MODEL)
     yield
 
